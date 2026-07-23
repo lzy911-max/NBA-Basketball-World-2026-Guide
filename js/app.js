@@ -6,15 +6,147 @@ let activeCategory = 'all';
 
 const LANG_LABELS = { en: 'English', zh: '繁中', ja: '日本語', ko: '한국어' };
 
-// Categories
+// Category labels per language
+const CATEGORY_LABELS = {
+  en: {
+    all: 'All Guides',
+    '主要玩法': 'Game Modes',
+    '球员养成': 'Player Development',
+    '抽卡相关': 'Gacha & Scouting',
+    '交易系统': 'Trading',
+    '球队管理': 'Team Management',
+    '属性说明': 'Attributes'
+  },
+  zh: {
+    all: '全部攻略',
+    '主要玩法': '主要玩法',
+    '球员养成': '球員養成',
+    '抽卡相关': '抽卡相關',
+    '交易系统': '交易系統',
+    '球队管理': '球隊管理',
+    '属性说明': '屬性說明'
+  },
+  ja: {
+    all: '全ての攻略',
+    '主要玩法': 'メインコンテンツ',
+    '球员养成': '選手育成',
+    '抽卡相关': 'ガチャ・スカウト',
+    '交易系统': '取引システム',
+    '球队管理': 'チーム管理',
+    '属性说明': '属性説明'
+  },
+  ko: {
+    all: '전체 공략',
+    '主要玩法': '메인 콘텐츠',
+    '球员养成': '선수 육성',
+    '抽卡相关': '가챠・스카우트',
+    '交易系统': '거래 시스템',
+    '球队管理': '팀 관리',
+    '属性说明': '속성 설명'
+  }
+};
+
+// Tag labels per language (fallback to original if missing)
+const TAG_LABELS = {
+  en: {
+    '阵容': 'Lineup', '预设': 'Preset', '战术': 'Tactics',
+    '球员分数': 'Rating', '能力值': 'Stats', '掉分': 'Drop', '数据更新': 'Data Update',
+    '特训': 'Training', '肉卡': 'Fodder', '养成技巧': 'Tips',
+    '经典回顾': 'Classic', '关卡': 'Stages', '行动力': 'Mobility', '奖励': 'Rewards',
+    '巅峰巡演': 'Peak Tour', '训练收益': 'Training Earnings', '商业巡演': 'Commercial Tour', '快速训练': 'Quick Training', '钻石': 'Diamonds',
+    '豪门争锋': 'Superteams', '挑战券': 'Tickets', '排名': 'Ranking', '伤害': 'Damage',
+    '排位赛': 'Rank Match', '赛季': 'Season', '段位': 'Rank', '积分': 'Points',
+    '竞技赛': 'Arena', '能量饮料': 'Energy', '战术道具': 'Tactic Items',
+    '组队赛': 'Team Match', '多人': 'Co-op', '碎片': 'Shards', '助战': 'Support',
+    '王朝模式': 'Dynasty', '工资限额': 'Salary Cap', '真实数据': 'Live Stats', '排行榜': 'Leaderboard',
+    '球探': 'Scouting', '抽卡': 'Pull', '盲盒': 'Mystery Box', '心愿球员': 'Wishlist', '概率': 'Rates',
+    '选秀': 'Draft', '球会市场': 'Market', '寄售': 'Resale', '跨服': 'Cross-server',
+    '星探': 'Talent Scout', '魅力值': 'Charm', '引援': 'Recruitment', '升级': 'Level Up',
+    '升星': 'Rank Up', '成功率': 'Success Rate', '材料': 'Materials', '同名球员': 'Duplicate',
+    '晋升': 'Promotion', '金币': 'Coins', '重置': 'Reset', '交易': 'Trade',
+    '能力卡': 'Ability Card', '资金': 'Funds',
+    '强化': 'Enhance', '进阶': 'Advance', '魂石': 'Soulstones', '合同': 'Contracts',
+    '装备': 'Gear', '升级': 'Upgrade', '融合': 'Fuse', '洗炼': 'Refine', '套装': 'Set',
+    '徽章': 'Badge', '保护卡': 'Protection Card', '孔位': 'Slots',
+    '戒指': 'Ring', '护佑': 'Blessing', '特殊属性': 'Special', '槽位': 'Slots'
+  },
+  zh: {
+    '阵容': '陣容', '预设': '預設', '战术': '戰術',
+    '球员分数': '球員分數', '能力值': '能力值', '掉分': '掉分', '数据更新': '數據更新',
+    '特训': '特訓', '肉卡': '肉卡', '养成技巧': '養成技巧',
+    '经典回顾': '經典回顧', '关卡': '關卡', '行动力': '行動力', '奖励': '獎勵',
+    '巅峰巡演': '巔峰巡演', '训练收益': '訓練收益', '商业巡演': '商業巡演', '快速训练': '快速訓練', '钻石': '鑽石',
+    '豪门争锋': '豪門爭鋒', '挑战券': '挑戰券', '排名': '排名', '伤害': '傷害',
+    '排位赛': '排位賽', '赛季': '賽季', '段位': '段位', '积分': '積分',
+    '竞技赛': '競技賽', '能量饮料': '能量飲料', '战术道具': '戰術道具',
+    '组队赛': '組隊賽', '多人': '多人', '碎片': '碎片', '助战': '助戰',
+    '王朝模式': '王朝模式', '工资限额': '工資限額', '真实数据': '真實數據', '排行榜': '排行榜',
+    '球探': '球探', '抽卡': '抽卡', '盲盒': '盲盒', '心愿球员': '心願球員', '概率': '機率',
+    '选秀': '選秀', '球会市场': '球會市場', '寄售': '寄售', '跨服': '跨服',
+    '星探': '星探', '魅力值': '魅力值', '引援': '引援', '升级': '升級',
+    '升星': '升星', '成功率': '成功率', '材料': '材料', '同名球员': '同名球員',
+    '晋升': '晉升', '金币': '金幣', '重置': '重置', '交易': '交易',
+    '能力卡': '能力卡', '资金': '資金',
+    '强化': '強化', '进阶': '進階', '魂石': '魂石', '合同': '合約',
+    '装备': '裝備', '升级': '升級', '融合': '融合', '洗炼': '洗煉', '套装': '套裝',
+    '徽章': '徽章', '保护卡': '保護卡', '孔位': '孔位',
+    '戒指': '戒指', '护佑': '護佑', '特殊属性': '特殊屬性', '槽位': '槽位'
+  },
+  ja: {
+    '阵容': '編成', '预设': 'プリセット', '战术': '戦術',
+    '球员分数': 'スコア', '能力值': '能力値', '掉分': 'スコア下落', '数据更新': 'データ更新',
+    '特训': '特訓', '肉卡': '肉カード', '养成技巧': '育成コツ',
+    '经典回顾': '栄光の軌跡', '关卡': 'ステージ', '行动力': 'AP', '奖励': '報酬',
+    '巅峰巡演': 'ピークツアー', '训练收益': 'トレーニング収益', '商业巡演': '商業ツアー', '快速训练': 'クイックトレ', '钻石': 'ダイヤ',
+    '豪门争锋': '強豪挑戦', '挑战券': 'チケット', '排名': 'ランキング', '伤害': 'ダメージ',
+    '排位赛': 'ランクマッチ', '赛季': 'シーズン', '段位': '段位', '积分': 'ポイント',
+    '竞技赛': 'エキシビション', '能量饮料': 'ドリンク', '战术道具': '戦術アイテム',
+    '组队赛': 'チーム戦', '多人': '協力', '碎片': 'かけら', '助战': 'サポート',
+    '王朝模式': '王朝モード', '工资限额': '給与上限', '真实数据': 'リアルデータ', '排行榜': 'ランキング',
+    '球探': 'スカウト', '抽卡': 'ガチャ', '盲盒': 'ブラインドボックス', '心愿球员': 'ウィッシュリスト', '概率': '確率',
+    '选秀': 'ドラフト', '球会市场': 'マーケット', '寄售': '委託', '跨服': 'クロスサーバー',
+    '星探': 'エージェント', '魅力值': 'カリスマ', '引援': '選手獲得', '升级': 'レベルアップ',
+    '升星': '星上げ', '成功率': '成功率', '材料': '素材', '同名球员': '同名選手',
+    '晋升': '進化', '金币': 'コイン', '重置': 'リセット', '交易': '取引',
+    '能力卡': '能力カード', '资金': '資金',
+    '强化': '強化', '进阶': '進化', '魂石': 'ソウルストーン', '合同': '契約',
+    '装备': '装備', '升级': 'アップグレード', '融合': '合成', '洗炼': '錬成', '套装': 'セット',
+    '徽章': 'バッジ', '保护卡': 'プロテクト', '孔位': 'スロット',
+    '戒指': 'リング', '护佑': '護佑', '特殊属性': '特殊属性', '槽位': 'スロット'
+  },
+  ko: {
+    '阵容': '라인업', '预设': '프리셋', '战术': '전술',
+    '球员分数': '점수', '能力值': '능력치', '掉分': '점수 하락', '数据更新': '데이터 업데이트',
+    '特训': '특훈', '肉卡': '육성 카드', '养成技巧': '육성 팁',
+    '经典回顾': '클래식 리뷰', '关卡': '스테이지', '行动力': '이동력', '奖励': '보상',
+    '巅峰巡演': '피크 투어', '训练收益': '트레이닝 수익', '商业巡演': '비즈니스 투어', '快速训练': '빠른 트레이닝', '钻石': '다이아',
+    '豪门争锋': '강호 대결', '挑战券': '챌린지 티켓', '排名': '랭킹', '伤害': '피해',
+    '排位赛': '랭크 매치', '赛季': '시즌', '段位': '티어', '积分': '포인트',
+    '竞技赛': '경쟁 경기', '能量饮料': '에너지 드링크', '战术道具': '전술 아이템',
+    '组队赛': '팀 대전', '多人': '협동', '碎片': '파편', '助战': '지원',
+    '王朝模式': '왕조 모드', '工资限额': '연봉 상한', '真实数据': '실제 데이터', '排行榜': '랭킹',
+    '球探': '스카우트', '抽卡': '가챠', '盲盒': '블라인드 박스', '心愿球员': '위시리스트', '概率': '확률',
+    '选秀': '드래프트', '球会市场': '마켓', '寄售': '위탁 판매', '跨服': '크로스 서버',
+    '星探': '스카우터', '魅力值': '매력치', '引援': '영입', '升级': '레벨업',
+    '升星': '성급 상승', '成功率': '성공률', '材料': '재료', '同名球员': '동명 선수',
+    '晋升': '승급', '金币': '골드', '重置': '초기화', '交易': '거래',
+    '能力卡': '능력 카드', '资金': '자금',
+    '强化': '강화', '进阶': '진화', '魂石': '소울스톤', '合同': '계약',
+    '装备': '장비', '升级': '업그레이드', '融合': '합성', '洗炼': '세공', '套装': '세트',
+    '徽章': '배지', '保护卡': '보호 카드', '孔位': '슬롯',
+    '戒指': '반지', '护佑': '수호', '特殊属性': '특수 속성', '槽位': '슬롯'
+  }
+};
+
+// Categories (labels will be pulled from CATEGORY_LABELS based on current language)
 const CATEGORIES = [
-  { key: 'all', label: 'All Guides' },
-  { key: '主要玩法', label: 'Game Modes' },
-  { key: '球员养成', label: 'Player Development' },
-  { key: '抽卡相关', label: 'Gacha & Scouting' },
-  { key: '交易系统', label: 'Trading' },
-  { key: '球队管理', label: 'Team Management' },
-  { key: '属性说明', label: 'Attributes' }
+  { key: 'all' },
+  { key: '主要玩法' },
+  { key: '球员养成' },
+  { key: '抽卡相关' },
+  { key: '交易系统' },
+  { key: '球队管理' },
+  { key: '属性说明' }
 ];
 
 function init() {
@@ -35,8 +167,9 @@ function renderCategories() {
   const container = document.getElementById('categoryFilters');
   container.innerHTML = CATEGORIES.map(cat => {
     const count = cat.key === 'all' ? GUIDES.length : GUIDES.filter(g => g.category === cat.key).length;
+    const label = CATEGORY_LABELS[currentLang][cat.key] || CATEGORY_LABELS.en[cat.key];
     return `<button class="cat-btn${activeCategory === cat.key ? ' active' : ''}" data-cat="${cat.key}">
-      ${cat.label} <span class="cat-count">${count}</span>
+      ${label} <span class="cat-count">${count}</span>
     </button>`;
   }).join('');
 }
@@ -49,6 +182,7 @@ function bindEvents() {
     currentLang = btn.dataset.lang;
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    renderCategories();
     if (currentGuide) {
       renderDetail(currentGuide);
     } else {
@@ -182,8 +316,14 @@ function renderGuides() {
   const filtered = filterGuides();
 
   stats.textContent = filtered.length === GUIDES.length
-    ? `Showing all ${GUIDES.length} guides`
-    : `Found ${filtered.length} of ${GUIDES.length} guides`;
+    ? (currentLang === 'zh' ? `顯示全部 ${GUIDES.length} 篇攻略` :
+       currentLang === 'ja' ? `全 ${GUIDES.length} 件の攻略を表示` :
+       currentLang === 'ko' ? `전체 ${GUIDES.length} 개 공략 표시` :
+       `Showing all ${GUIDES.length} guides`)
+    : (currentLang === 'zh' ? `找到 ${filtered.length} / ${GUIDES.length} 篇攻略` :
+       currentLang === 'ja' ? `${filtered.length} / ${GUIDES.length} 件の攻略が見つかりました` :
+       currentLang === 'ko' ? `${filtered.length} / ${GUIDES.length} 개 공략을 찾았습니다` :
+       `Found ${filtered.length} of ${GUIDES.length} guides`);
 
   if (filtered.length === 0) {
     grid.innerHTML = `
@@ -198,12 +338,14 @@ function renderGuides() {
   grid.innerHTML = filtered.map((g, i) => {
     const content = g.content[currentLang];
     const title = content?.title || g.content.en?.title || g.id;
+    const categoryLabel = CATEGORY_LABELS[currentLang][g.category] || CATEGORY_LABELS.en[g.category] || g.category;
+    const tagLabels = g.tags.map(t => TAG_LABELS[currentLang]?.[t] || TAG_LABELS.zh?.[t] || t);
     return `
       <a href="#${g.id}" class="guide-card" data-id="${g.id}" style="animation-delay: ${i * 0.05}s">
-        <div class="card-category">${g.category}</div>
+        <div class="card-category">${categoryLabel}</div>
         <div class="card-title">${title}</div>
         <div class="card-tags">
-          ${g.tags.map(t => `<span class="card-tag">#${t}</span>`).join('')}
+          ${tagLabels.map(t => `<span class="card-tag">#${t}</span>`).join('')}
         </div>
       </a>`;
   }).join('');
@@ -222,10 +364,10 @@ function renderDetail(guide) {
   const content = guide.content[currentLang] || guide.content.en;
   const seo = guide.seo?.[currentLang] || guide.seo?.en;
 
-  document.getElementById('detailCategory').textContent = guide.category;
+  document.getElementById('detailCategory').textContent = CATEGORY_LABELS[currentLang][guide.category] || CATEGORY_LABELS.en[guide.category] || guide.category;
   document.getElementById('detailTitle').textContent = content?.title || '';
   document.getElementById('detailTags').innerHTML = guide.tags.map(t =>
-    `<span class="card-tag">#${t}</span>`
+    `<span class="card-tag">#${TAG_LABELS[currentLang]?.[t] || TAG_LABELS.zh?.[t] || t}</span>`
   ).join('');
 
   document.getElementById('detailBody').innerHTML = content?.body || '';
@@ -238,10 +380,11 @@ function renderDetail(guide) {
     document.getElementById('relatedSection').style.display = 'block';
     relatedGrid.innerHTML = related.map(g => {
       const rc = g.content[currentLang] || g.content.en;
+      const catLabel = CATEGORY_LABELS[currentLang][g.category] || CATEGORY_LABELS.en[g.category] || g.category;
       return `
         <a href="#${g.id}" class="related-card" data-id="${g.id}">
           <div class="card-title">${rc?.title || g.id}</div>
-          <span class="card-tag" style="margin-top:4px;display:inline-block;font-size:11px">${g.category}</span>
+          <span class="card-tag" style="margin-top:4px;display:inline-block;font-size:11px">${catLabel}</span>
         </a>`;
     }).join('');
 

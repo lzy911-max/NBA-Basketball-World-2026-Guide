@@ -14,8 +14,7 @@ const CATEGORY_LABELS = {
     '球员养成': 'Player Development',
     '抽卡相关': 'Gacha & Scouting',
     '交易系统': 'Trading',
-    '球队管理': 'Team Management',
-    '属性说明': 'Attributes'
+    '球队管理': 'Team Management'
   },
   zh: {
     all: '全部攻略',
@@ -23,8 +22,7 @@ const CATEGORY_LABELS = {
     '球员养成': '球員養成',
     '抽卡相关': '抽卡相關',
     '交易系统': '交易系統',
-    '球队管理': '球隊管理',
-    '属性说明': '屬性說明'
+    '球队管理': '球隊管理'
   },
   ja: {
     all: '全ての攻略',
@@ -32,8 +30,7 @@ const CATEGORY_LABELS = {
     '球员养成': '選手育成',
     '抽卡相关': 'ガチャ・スカウト',
     '交易系统': '取引システム',
-    '球队管理': 'チーム管理',
-    '属性说明': '属性説明'
+    '球队管理': 'チーム管理'
   },
   ko: {
     all: '전체 공략',
@@ -41,8 +38,7 @@ const CATEGORY_LABELS = {
     '球员养成': '선수 육성',
     '抽卡相关': '가챠・스카우트',
     '交易系统': '거래 시스템',
-    '球队管理': '팀 관리',
-    '属性说明': '속성 설명'
+    '球队管理': '팀 관리'
   }
 };
 
@@ -68,7 +64,14 @@ const TAG_LABELS = {
     '强化': 'Enhance', '进阶': 'Advance', '魂石': 'Soulstones', '合同': 'Contracts',
     '装备': 'Gear', '升级': 'Upgrade', '融合': 'Fuse', '洗炼': 'Refine', '套装': 'Set',
     '徽章': 'Badge', '保护卡': 'Protection Card', '孔位': 'Slots',
-    '戒指': 'Ring', '护佑': 'Blessing', '特殊属性': 'Special', '槽位': 'Slots'
+    '戒指': 'Ring', '护佑': 'Blessing', '特殊属性': 'Special', '槽位': 'Slots',
+    '赛区': 'Division', '属性加成': 'Bonus',
+    '进攻': 'Offense', '防守': 'Defense', '克制': 'Counter',
+    '寄售': 'Consignment', '求购': 'Buy Order', '认证券': 'Voucher', '时间锁': 'Time Lock',
+    '图鉴': 'Gallery', '现役': 'Active', '传奇': 'Legend', '球场皮肤': 'Court Skin',
+    '教练': 'Coach', '风格': 'Style', '技能': 'Skills', '觉醒': 'Awakening',
+    '联盟': 'Alliance', '科技': 'Tech', '弹劾': 'Impeach', '贡献': 'Contribution',
+    '助理': 'Assistant', '好感度': 'Favor', '天赋': 'Talent'
   },
   zh: {
     '阵容': '陣容', '预设': '預設', '战术': '戰術',
@@ -90,7 +93,14 @@ const TAG_LABELS = {
     '强化': '強化', '进阶': '進階', '魂石': '魂石', '合同': '合約',
     '装备': '裝備', '升级': '升級', '融合': '融合', '洗炼': '洗煉', '套装': '套裝',
     '徽章': '徽章', '保护卡': '保護卡', '孔位': '孔位',
-    '戒指': '戒指', '护佑': '護佑', '特殊属性': '特殊屬性', '槽位': '槽位'
+    '戒指': '戒指', '护佑': '護佑', '特殊属性': '特殊屬性', '槽位': '槽位',
+    '赛区': '賽區', '属性加成': '屬性加成',
+    '进攻': '進攻', '防守': '防守', '克制': '克制',
+    '寄售': '寄售', '求购': '求購', '认证券': '認證券', '时间锁': '時間鎖',
+    '图鉴': '圖鑑', '现役': '現役', '传奇': '傳奇', '球场皮肤': '球場皮膚',
+    '教练': '教練', '风格': '風格', '技能': '技能', '觉醒': '覺醒',
+    '联盟': '聯盟', '科技': '科技', '弹劾': '彈劾', '贡献': '貢獻',
+    '助理': '助理', '好��度': '好感度', '天赋': '天賦'
   },
   ja: {
     '阵容': '編成', '预设': 'プリセット', '战术': '戦術',
@@ -112,7 +122,14 @@ const TAG_LABELS = {
     '强化': '強化', '进阶': '進化', '魂石': 'ソウルストーン', '合同': '契約',
     '装备': '装備', '升级': 'アップグレード', '融合': '合成', '洗炼': '錬成', '套装': 'セット',
     '徽章': 'バッジ', '保护卡': 'プロテクト', '孔位': 'スロット',
-    '戒指': 'リング', '护佑': '護佑', '特殊属性': '特殊属性', '槽位': 'スロット'
+    '戒指': 'リング', '护佑': '護佑', '特殊属性': '特殊属性', '槽位': 'スロット',
+    '赛区': '区域', '属性加成': 'ボーナス',
+    '进攻': '攻撃', '防守': '守備', '克制': '相克',
+    '寄售': '委託', '求购': '購入希望', '认证券': '認証券', '时间锁': 'タイムロック',
+    '图鉴': '図鑑', '现役': '現役', '传奇': 'レジェンド', '球场皮肤': 'コートスキン',
+    '教练': 'コーチ', '风格': 'スタイル', '技能': 'スキル', '觉醒': '覚醒',
+    '联盟': 'ギルド', '科技': 'テクノロジー', '弹劾': '弾劾', '贡献': '貢献',
+    '助理': 'アシスタント', '好感度': '好感度', '天赋': '天賦'
   },
   ko: {
     '阵容': '라인업', '预设': '프리셋', '战术': '전술',
@@ -134,7 +151,14 @@ const TAG_LABELS = {
     '强化': '강화', '进阶': '진화', '魂石': '소울스톤', '合同': '계약',
     '装备': '장비', '升级': '업그레이드', '融合': '합성', '洗炼': '세공', '套装': '세트',
     '徽章': '배지', '保护卡': '보호 카드', '孔位': '슬롯',
-    '戒指': '반지', '护佑': '수호', '特殊属性': '특수 속성', '槽位': '슬롯'
+    '戒指': '반지', '护佑': '수호', '特殊属性': '특수 속성', '槽位': '슬롯',
+    '赛区': '구역', '属性加成': '보너스',
+    '进攻': '공격', '防守': '수비', '克制': '카운터',
+    '寄售': '위탁', '求购': '구매 요청', '认证券': '인증권', '时间锁': '타임락',
+    '图鉴': '도감', '现役': '현역', '传奇': '레전드', '球场皮肤': '구장 스킨',
+    '教练': '코치', '风格': '스타일', '技能': '스킬', '觉醒': '각성',
+    '联盟': '리그', '科技': '테크', '弹劾': '탄핵', '贡献': '공헌',
+    '助理': '어시스턴트', '好感度': '호감도', '天赋': '천부'
   }
 };
 
@@ -145,8 +169,7 @@ const CATEGORIES = [
   { key: '球员养成' },
   { key: '抽卡相关' },
   { key: '交易系统' },
-  { key: '球队管理' },
-  { key: '属性说明' }
+  { key: '球队管理' }
 ];
 
 function init() {
@@ -161,6 +184,29 @@ function renderLangSwitcher() {
   container.innerHTML = Object.entries(LANG_LABELS).map(([key, label]) =>
     `<button class="lang-btn${key === currentLang ? ' active' : ''}" data-lang="${key}">${label}</button>`
   ).join('');
+}
+
+function updateDownloadLabels() {
+  const labels = {
+    en: { google: 'GET IT ON', apple: 'Download on the' },
+    zh: { google: '立即下載', apple: '從以下位置下載' },
+    ja: { google: 'Google Play で入手', apple: 'ダウンロード' },
+    ko: { google: 'Google Play에서 다운로드', apple: 'App Store에서 다운로드' }
+  };
+  const lbl = labels[currentLang] || labels.en;
+  document.querySelectorAll('[data-i18n="google-play-label"]').forEach(el => el.textContent = lbl.google);
+  document.querySelectorAll('[data-i18n="app-store-label"]').forEach(el => el.textContent = lbl.apple);
+
+  // Web payment labels
+  const webLabels = {
+    en: { title: 'Web-Payment', desc: 'Enjoy an extra 10% discount via Web-Payment. See details upon entry.' },
+    zh: { title: '官網支付', desc: '使用官網支付可以享受 10% 的額外優惠，詳細進入後查看。' },
+    ja: { title: 'ウェブ課金', desc: 'ウェブ課金ご利用で追加 10％特典付き。詳細は画面遷移後をご確認ください。' },
+    ko: { title: '공식 홈페이지 충전', desc: '공식 홈페이지 충전으로 ���가 10% 할인 혜택을 누릴 수 있습니다. 자세한 사항은 진입 후 확인 바랍니다.' }
+  };
+  const wl = webLabels[currentLang] || webLabels.en;
+  document.querySelectorAll('[data-i18n="web-payment-title"]').forEach(el => el.textContent = wl.title);
+  document.querySelectorAll('[data-i18n="web-payment-desc"]').forEach(el => el.textContent = wl.desc);
 }
 
 function renderCategories() {
@@ -183,6 +229,7 @@ function bindEvents() {
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderCategories();
+    updateDownloadLabels();
     if (currentGuide) {
       renderDetail(currentGuide);
     } else {

@@ -142,7 +142,120 @@ body {
   font-size: 16px;
   color: var(--text-secondary);
   max-width: 600px;
-  margin: 0 auto 32px;
+  margin: 0 auto 24px;
+}
+
+/* Download Buttons */
+.download-section {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: all var(--transition);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  min-width: 180px;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.download-btn.google-play:hover {
+  border-color: #00c853;
+  background: #1a1f2e;
+}
+
+.download-btn.app-store:hover {
+  border-color: #007aff;
+  background: #1a1f2e;
+}
+
+.store-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: var(--text-primary);
+}
+
+.download-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.download-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.download-store {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Web Payment Link */
+.web-payment-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto 24px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(239,68,68,0.08));
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.web-payment-link:hover {
+  background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(239,68,68,0.15));
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(245,158,11,0.15);
+}
+
+.web-payment-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+  padding: 3px 10px;
+  background: rgba(245,158,11,0.15);
+  border-radius: 6px;
+}
+
+.web-payment-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  flex: 1;
+  line-height: 1.4;
+}
+
+.web-payment-arrow {
+  font-size: 18px;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.web-payment-link:hover .web-payment-arrow {
+  transform: translateX(4px);
 }
 
 /* Search */

@@ -439,6 +439,23 @@ body {
 
 .guide-card:hover::before { opacity: 1; }
 
+.guide-card-recommended {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #231b12 100%);
+}
+
+.card-star {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  color: var(--accent);
+  font-size: 22px;
+  line-height: 1;
+  text-shadow: 0 0 12px var(--accent-glow), 0 0 4px rgba(245, 158, 11, 0.6);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .card-category {
   display: inline-block;
   padding: 4px 10px;
@@ -804,6 +821,11 @@ body {
   .guide-card {
     padding: 16px 18px;
     border-radius: var(--radius);
+  }
+  .card-star {
+    top: 10px;
+    right: 12px;
+    font-size: 18px;
   }
   .card-category {
     font-size: 11px;

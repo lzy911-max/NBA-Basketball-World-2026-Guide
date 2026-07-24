@@ -412,8 +412,10 @@ function renderGuides() {
     const title = content?.title || g.content.en?.title || g.id;
     const categoryLabel = CATEGORY_LABELS[currentLang][g.category] || CATEGORY_LABELS.en[g.category] || g.category;
     const tagLabels = g.tags.map(t => TAG_LABELS[currentLang]?.[t] || TAG_LABELS.zh?.[t] || t);
+    const star = g.recommended ? '<span class="card-star" title="Recommended">★</span>' : '';
     return `
-      <a href="#${g.id}" class="guide-card" data-id="${g.id}" style="animation-delay: ${i * 0.05}s">
+      <a href="#${g.id}" class="guide-card ${g.recommended ? 'guide-card-recommended' : ''}" data-id="${g.id}" style="animation-delay: ${i * 0.05}s">
+        ${star}
         <div class="card-category">${categoryLabel}</div>
         <div class="card-title">${title}</div>
         <div class="card-tags">

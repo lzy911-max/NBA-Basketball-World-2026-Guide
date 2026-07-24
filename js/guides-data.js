@@ -3,6 +3,7 @@ const GUIDES = [
   {
     "id": "beginner-guide",
     "category": "新手攻略",
+    "recommended": true,
     "tags": ["养成技巧"],
     "content": {
       "zh": {

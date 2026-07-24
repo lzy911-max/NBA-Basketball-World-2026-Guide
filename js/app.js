@@ -10,6 +10,7 @@ const LANG_LABELS = { en: 'English', zh: '繁中', ja: '日本語', ko: '한국�
 const CATEGORY_LABELS = {
   en: {
     all: 'All Guides',
+    '新手攻略': 'Beginner Guides',
     '主要玩法': 'Game Modes',
     '球员养成': 'Player Development',
     '抽卡相关': 'Gacha & Scouting',
@@ -18,6 +19,7 @@ const CATEGORY_LABELS = {
   },
   zh: {
     all: '全部攻略',
+    '新手攻略': '新手攻略',
     '主要玩法': '主要玩法',
     '球员养成': '球員養成',
     '抽卡相关': '抽卡相關',
@@ -26,6 +28,7 @@ const CATEGORY_LABELS = {
   },
   ja: {
     all: '全ての攻略',
+    '新手攻略': '初心者攻略',
     '主要玩法': 'メインコンテンツ',
     '球员养成': '選手育成',
     '抽卡相关': 'ガチャ・スカウト',
@@ -34,6 +37,7 @@ const CATEGORY_LABELS = {
   },
   ko: {
     all: '전체 공략',
+    '新手攻略': '초보자 공략',
     '主要玩法': '메인 콘텐츠',
     '球员养成': '선수 육성',
     '抽卡相关': '가챠・스카우트',
@@ -165,6 +169,7 @@ const TAG_LABELS = {
 // Categories (labels will be pulled from CATEGORY_LABELS based on current language)
 const CATEGORIES = [
   { key: 'all' },
+  { key: '新手攻略' },
   { key: '主要玩法' },
   { key: '球员养成' },
   { key: '抽卡相关' },
@@ -207,6 +212,26 @@ function updateDownloadLabels() {
   const wl = webLabels[currentLang] || webLabels.en;
   document.querySelectorAll('[data-i18n="web-payment-title"]').forEach(el => el.textContent = wl.title);
   document.querySelectorAll('[data-i18n="web-payment-desc"]').forEach(el => el.textContent = wl.desc);
+
+  // Back button labels
+  const backLabels = {
+    en: '← Back to all guides',
+    zh: '← 返回全部攻略',
+    ja: '← 攻略一覧に戻る',
+    ko: '← 전체 공략으로 돌아가기'
+  };
+  const backText = backLabels[currentLang] || backLabels.en;
+  document.querySelectorAll('[data-i18n="back-to-all"]').forEach(el => el.textContent = backText);
+
+  // Hero subtitle labels
+  const heroSubtitles = {
+    en: 'Complete game guides in English, 繁體中文, 日本語, 한국어. Search by keyword or browse by category.',
+    zh: '提供英文、繁體中文、日本語、한국어 四種語言的完整遊戲攻略。可輸入關鍵字搜尋或按分類瀏覽。',
+    ja: '英語、繁体字中国語、日本語、韓国語の完全攻略。キーワード検索やカテゴリ別閲覧に対応。',
+    ko: '영어, 번체중문, 일본어, 한국어 완전 공략. 키워드 검색 또는 카테고리별 탐색이 가능합니다.'
+  };
+  const heroSubtitle = heroSubtitles[currentLang] || heroSubtitles.en;
+  document.querySelectorAll('[data-i18n="hero-subtitle"]').forEach(el => el.textContent = heroSubtitle);
 }
 
 function renderCategories() {

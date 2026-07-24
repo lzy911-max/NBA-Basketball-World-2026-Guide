@@ -666,6 +666,7 @@ const GUIDES = [
   {
     "id": "coach-skill-builds",
     "category": "球队管理",
+    "recommended": true,
     "tags": ["教练", "技能", "风格"],
     "content": {
       "zh": {

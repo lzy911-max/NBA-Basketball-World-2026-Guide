@@ -213,6 +213,15 @@ function updateDownloadLabels() {
   document.querySelectorAll('[data-i18n="web-payment-title"]').forEach(el => el.textContent = wl.title);
   document.querySelectorAll('[data-i18n="web-payment-desc"]').forEach(el => el.textContent = wl.desc);
 
+  // Related guides labels
+  const relatedLabels = {
+    en: 'Related Guides',
+    zh: '相關攻略',
+    ja: '関連攻略',
+    ko: '관련 공략'
+  };
+  document.querySelectorAll('[data-i18n="related-guides"]').forEach(el => el.textContent = relatedLabels[currentLang] || relatedLabels.en);
+
   // Back button labels
   const backLabels = {
     en: '← Back to all guides',

@@ -362,6 +362,22 @@ function showDetail(guide) {
   updateHash();
 }
 
+// Simple English stemmer: strips common suffixes for fuzzy matching
+function stemEn(word) {
+  const w = word.toLowerCase();
+  if (w.endsWith('ies') && w.length > 4) return w.slice(0, -3) + 'y';
+  if (w.endsWith('es') && (w.endsWith('sses') || w.endsWith('shes') || w.endsWith('ches') || w.endsWith('xes') || w.endsWith('zes')))
+    return w.slice(0, -2);
+  if (w.endsWith('es') && w.length > 4) return w.slice(0, -2);
+  if (w.endsWith('s') && !w.endsWith('ss') && w.length > 4) return w.slice(0, -1);
+  if (w.endsWith('ing') && w.length > 5) return w.slice(0, -3);
+  if (w.endsWith('ed') && w.length > 4) return w.slice(0, -2);
+  if (w.endsWith('er') && w.length > 4) return w.slice(0, -2);
+  if (w.endsWith('est') && w.length > 5) return w.slice(0, -3);
+  if (w.endsWith('tion') && w.length > 6) return w.slice(0, -4) + 't';
+  return w;
+}
+
 function filterGuides() {
   let filtered = [...GUIDES];
 
@@ -373,19 +389,44 @@ function filterGuides() {
   // Search filter - fuzzy multi-keyword matching
   if (searchQuery) {
     const keywords = searchQuery.split(/\s+/).filter(k => k.length > 0);
+    const isEn = currentLang === 'en';
+
     filtered = filtered.filter(g => {
       const content = g.content[currentLang];
       const seo = g.seo?.[currentLang];
+
+      // Base search text (current language content)
       const searchText = [
         content?.title || '',
         content?.body || '',
         seo?.title || '',
         seo?.description || '',
         seo?.keywords || '',
+        // Include original Chinese tags for CJK search
         ...g.tags
       ].join(' ').toLowerCase();
-      // All keywords must match (fuzzy: each keyword can appear anywhere in the text)
-      return keywords.every(kw => searchText.includes(kw));
+
+      // For English: also include translated tags for better matching
+      let enSearchText = searchText;
+      if (isEn) {
+        const translatedTags = g.tags.map(t => (TAG_LABELS.en?.[t] || '').toLowerCase()).filter(Boolean);
+        enSearchText = searchText + ' ' + translatedTags.join(' ');
+      }
+
+      return keywords.every(kw => {
+        const kwLower = kw.toLowerCase();
+        // Direct match
+        if (enSearchText.includes(kwLower)) return true;
+        // Stemmed match for English (e.g. "players" matches "player")
+        if (isEn && kwLower.length > 3) {
+          const stemmed = stemEn(kwLower);
+          if (stemmed !== kwLower && enSearchText.includes(stemmed)) return true;
+          // Also stem the search text words for bidirectional matching
+          const words = enSearchText.split(/\s+/);
+          if (words.some(w => w.length > 3 && stemEn(w) === stemmed)) return true;
+        }
+        return false;
+      });
     });
   }
 

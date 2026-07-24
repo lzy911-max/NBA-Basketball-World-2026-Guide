@@ -180,6 +180,7 @@ const CATEGORIES = [
 function init() {
   renderLangSwitcher();
   renderCategories();
+  updateDownloadLabels();
   bindEvents();
   showHome();
 }

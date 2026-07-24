@@ -207,7 +207,7 @@ function updateDownloadLabels() {
     en: { title: 'Web-Payment', desc: 'Enjoy an extra 10% discount via Web-Payment. See details upon entry.' },
     zh: { title: '官網支付', desc: '使用官網支付可以享受 10% 的額外優惠，詳細進入後查看。' },
     ja: { title: 'ウェブ課金', desc: 'ウェブ課金ご利用で追加 10％特典付き。詳細は画面遷移後をご確認ください。' },
-    ko: { title: '공식 홈페이지 충전', desc: '공식 홈페이지 충전으로 ���가 10% 할인 혜택을 누릴 수 있습니다. 자세한 사항은 진입 후 확인 바랍니다.' }
+    ko: { title: '공식 홈페이지 충전', desc: '공식 홈페이지 충전으로 추가 10% 할인 혜택을 누릴 수 있습니다. 자세한 사항은 진입 후 확인 바랍니다.' }
   };
   const wl = webLabels[currentLang] || webLabels.en;
   document.querySelectorAll('[data-i18n="web-payment-title"]').forEach(el => el.textContent = wl.title);

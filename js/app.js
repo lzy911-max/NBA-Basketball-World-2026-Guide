@@ -4,7 +4,7 @@ let currentGuide = null;
 let searchQuery = '';
 let activeCategory = 'all';
 
-const LANG_LABELS = { en: 'English', zh: '繁中', ja: '日本語', ko: '한국어' };
+const LANG_LABELS = { en: 'English', zh: '繁體中文', ja: '日本語', ko: '한국어' };
 
 // Category labels per language
 const CATEGORY_LABELS = {

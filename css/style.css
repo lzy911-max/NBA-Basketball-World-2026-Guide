@@ -106,19 +106,29 @@ body {
 
 .lang-btn {
   padding: 6px 12px;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  background: rgba(245, 158, 11, 0.08);
+  color: var(--text-primary);
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   transition: all var(--transition);
   white-space: nowrap;
 }
 
-.lang-btn:hover { color: var(--text-primary); background: var(--bg-card-hover); }
-.lang-btn.active { background: var(--accent); color: #000; font-weight: 600; }
+.lang-btn:hover {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.lang-btn.active {
+  background: linear-gradient(135deg, #fbbf24, var(--accent));
+  color: #000;
+  font-weight: 700;
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--accent-glow), 0 2px 8px rgba(245, 158, 11, 0.4);
+}
 
 /* Hero */
 .hero {

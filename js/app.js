@@ -248,6 +248,13 @@ function updateDownloadLabels() {
     en: 'Guides', zh: '攻略指南', ja: '攻略ガイド', ko: '가이드'
   };
   document.querySelectorAll('[data-i18n="banner-guides"]').forEach(el => el.textContent = bannerGuidesLabels[currentLang] || bannerGuidesLabels.en);
+
+  // Local Stars banner titles
+  const bannerStarsLabels = {
+    en: 'Local Star', zh: '本土之星', ja: 'ローカル選手', ko: '현지 스타'
+  };
+  document.querySelectorAll('[data-i18n="banner-stars"]').forEach(el => el.textContent = bannerStarsLabels[currentLang] || bannerStarsLabels.en);
+  document.querySelectorAll('[data-i18n="banner-stars-sub"]').forEach(el => el.textContent = bannerStarsLabels[currentLang] || bannerStarsLabels.en);
 }
 
 function renderCategories() {

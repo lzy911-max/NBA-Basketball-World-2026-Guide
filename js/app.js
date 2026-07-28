@@ -242,6 +242,12 @@ function updateDownloadLabels() {
   };
   const heroSubtitle = heroSubtitles[currentLang] || heroSubtitles.en;
   document.querySelectorAll('[data-i18n="hero-subtitle"]').forEach(el => el.textContent = heroSubtitle);
+
+  // Section banner titles
+  const bannerGuidesLabels = {
+    en: 'Guides', zh: '攻略指南', ja: '攻略ガイド', ko: '가이드'
+  };
+  document.querySelectorAll('[data-i18n="banner-guides"]').forEach(el => el.textContent = bannerGuidesLabels[currentLang] || bannerGuidesLabels.en);
 }
 
 function renderCategories() {
@@ -267,6 +273,8 @@ function bindEvents() {
     updateDownloadLabels();
     if (currentGuide) {
       renderDetail(currentGuide);
+    } else if (document.getElementById('sectionStars')?.classList.contains('active')) {
+      renderStars();
     } else {
       renderGuides();
     }
@@ -315,6 +323,14 @@ function bindEvents() {
     showHome();
   });
 
+  // Section banner switching
+  document.getElementById('sectionBanners').addEventListener('click', e => {
+    const banner = e.target.closest('.section-banner');
+    if (!banner || banner.classList.contains('active')) return;
+    const section = banner.dataset.section;
+    switchSection(section);
+  });
+
   // Popstate for browser back/forward
   window.addEventListener('popstate', () => {
     handleHash();
@@ -344,12 +360,58 @@ function updateHash() {
   }
 }
 
+function switchSection(section) {
+  // Update banner active state
+  document.querySelectorAll('.section-banner').forEach(b => {
+    b.classList.toggle('active', b.dataset.section === section);
+  });
+  // Update content visibility
+  document.querySelectorAll('.section-content').forEach(c => {
+    c.classList.toggle('active', c.id === 'section' + section.charAt(0).toUpperCase() + section.slice(1));
+  });
+  // When switching to guides, refresh the guide list
+  if (section === 'guides') {
+    activeCategory = 'all';
+    renderCategories();
+    renderGuides();
+  } else if (section === 'stars') {
+    renderStars();
+  }
+}
+
+function renderStars() {
+  const stars = GUIDES.filter(g => g.category === '本土之星');
+  const grid = document.getElementById('starsGrid');
+  if (!grid) return;
+  grid.innerHTML = stars.map((g, i) => {
+    const content = g.content[currentLang];
+    const title = content?.title || g.content.en?.title || g.id;
+    const pid = g.id.replace('local-star-', '');
+    const imgSrc = `images/local-stars/covers/${pid}-cover.png`;
+    return `
+      <a href="#${g.id}" class="guide-card star-card" data-id="${g.id}" style="animation-delay: ${i * 0.05}s">
+        <div class="star-card-img"><img src="${imgSrc}" alt="${title}" loading="lazy"></div>
+        <div class="card-category">本土之星</div>
+        <div class="card-title">${title}</div>
+      </a>`;
+  }).join('');
+
+  grid.querySelectorAll('.guide-card').forEach(card => {
+    card.addEventListener('click', e => {
+      e.preventDefault();
+      const guide = GUIDES.find(g => g.id === card.dataset.id);
+      if (guide) showDetail(guide);
+    });
+  });
+}
+
 function showHome() {
   currentGuide = null;
   document.getElementById('homePage').classList.add('active');
   document.getElementById('detailPage').classList.remove('active');
   document.getElementById('searchInput').value = searchQuery;
-  renderGuides();
+  // Reset to guides section
+  switchSection('guides');
   updateHash();
 }
 
@@ -379,7 +441,8 @@ function stemEn(word) {
 }
 
 function filterGuides() {
-  let filtered = [...GUIDES];
+  // Only show non-star guides in guides section
+  let filtered = [...GUIDES].filter(g => g.category !== '本土之星');
 
   // Category filter
   if (activeCategory !== 'all') {
@@ -438,15 +501,15 @@ function renderGuides() {
   const stats = document.getElementById('resultStats');
   const filtered = filterGuides();
 
-  stats.textContent = filtered.length === GUIDES.length
-    ? (currentLang === 'zh' ? `顯示全部 ${GUIDES.length} 篇攻略` :
-       currentLang === 'ja' ? `全 ${GUIDES.length} 件の攻略を表示` :
-       currentLang === 'ko' ? `전체 ${GUIDES.length} 개 공략 표시` :
-       `Showing all ${GUIDES.length} guides`)
-    : (currentLang === 'zh' ? `找到 ${filtered.length} / ${GUIDES.length} 篇攻略` :
-       currentLang === 'ja' ? `${filtered.length} / ${GUIDES.length} 件の攻略が見つかりました` :
-       currentLang === 'ko' ? `${filtered.length} / ${GUIDES.length} 개 공략을 찾았습니다` :
-       `Found ${filtered.length} of ${GUIDES.length} guides`);
+  stats.textContent = filtered.length === (GUIDES.length - 6)
+    ? (currentLang === 'zh' ? `顯示全部 ${filtered.length} 篇攻略` :
+       currentLang === 'ja' ? `全 ${filtered.length} 件の攻略を表示` :
+       currentLang === 'ko' ? `전체 ${filtered.length} 개 공략 표시` :
+       `Showing all ${filtered.length} guides`)
+    : (currentLang === 'zh' ? `找到 ${filtered.length} 篇攻略` :
+       currentLang === 'ja' ? `${filtered.length} 件の攻略が見つかりました` :
+       currentLang === 'ko' ? `${filtered.length} 개 공략을 찾았습니다` :
+       `Found ${filtered.length} guides`);
 
   if (filtered.length === 0) {
     grid.innerHTML = `

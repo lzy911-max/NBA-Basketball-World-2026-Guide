@@ -398,6 +398,73 @@ body {
 
 .search-clear.visible { display: flex; }
 
+/* Section Banners */
+.section-banners {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  display: flex;
+  gap: 16px;
+}
+
+.section-banner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  transition: all var(--transition);
+  text-align: left;
+  cursor: pointer;
+}
+
+.section-banner:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.section-banner.active {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.03));
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+.banner-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.banner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.banner-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.banner-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Section Content */
+.section-content {
+  display: none;
+}
+
+.section-content.active {
+  display: block;
+}
+
 /* Category Filters */
 .category-filters {
   max-width: 1280px;
@@ -543,6 +610,45 @@ body {
   font-size: 12px;
 }
 
+/* --- Star Card (Local Stars) --- */
+.star-card {
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+}
+
+.star-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.2);
+}
+
+.star-card-img {
+  width: 100%;
+  aspect-ratio: 5 / 2;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.star-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.star-card:hover .star-card-img img {
+  transform: scale(1.03);
+}
+
+.star-card .card-category {
+  padding: 10px 16px 0;
+}
+
+.star-card .card-title {
+  padding: 4px 16px 12px;
+}
+
 /* No Results */
 .no-results {
   text-align: center;
@@ -654,6 +760,44 @@ body {
 
 .detail-content strong {
   color: var(--text-primary);
+}
+
+/* Player Detail Images */
+.player-img-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+  align-items: stretch;
+}
+
+.player-img {
+  flex: 0 1 auto;
+  max-width: 260px;
+  min-width: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.player-img img {
+  width: 100%;
+  max-height: 340px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .player-img-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .player-img {
+    max-width: 220px;
+  }
 }
 
 .detail-content table {
@@ -837,6 +981,15 @@ body {
     font-size: 14px;
   }
   .search-icon { font-size: 16px; left: 12px; }
+
+  /* ===== Section banners ===== */
+  .section-banners {
+    flex-direction: column;
+    padding: 16px 12px 0;
+  }
+  .section-banner {
+    padding: 16px 18px;
+  }
 
   /* ===== Category filters ===== */
   .category-filters {

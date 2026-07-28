@@ -892,6 +892,47 @@ body {
 
 .related-card .card-title { font-size: 14px; }
 
+/* Social Float */
+.social-float {
+  position: fixed;
+  right: 20px;
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 50;
+}
+
+.social-fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: all var(--transition);
+  color: #1f2937;
+}
+
+.social-fab svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.social-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  background: #ffffff;
+}
+
+.social-fab:hover { color: #000; border-color: rgba(0,0,0,0.15); }
+.social-fab.discord:hover { color: #5865F2; border-color: #5865F2; }
+.social-fab.line:hover { color: #06C755; border-color: #06C755; }
+
 /* Footer */
 .site-footer {
   background: var(--bg-secondary);

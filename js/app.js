@@ -15,7 +15,8 @@ const CATEGORY_LABELS = {
     '球员养成': 'Player Development',
     '抽卡相关': 'Gacha & Scouting',
     '交易系统': 'Trading',
-    '球队管理': 'Team Management'
+    '球队管理': 'Team Management',
+    '本土之星': 'Local Star'
   },
   zh: {
     all: '全部攻略',
@@ -24,7 +25,8 @@ const CATEGORY_LABELS = {
     '球员养成': '球員養成',
     '抽卡相关': '抽卡相關',
     '交易系统': '交易系統',
-    '球队管理': '球隊管理'
+    '球队管理': '球隊管理',
+    '本土之星': '本土之星'
   },
   ja: {
     all: '全ての攻略',
@@ -33,7 +35,8 @@ const CATEGORY_LABELS = {
     '球员养成': '選手育成',
     '抽卡相关': 'ガチャ・スカウト',
     '交易系统': '取引システム',
-    '球队管理': 'チーム管理'
+    '球队管理': 'チーム管理',
+    '本土之星': 'ローカル選手'
   },
   ko: {
     all: '전체 공략',
@@ -42,7 +45,8 @@ const CATEGORY_LABELS = {
     '球员养成': '선수 육성',
     '抽卡相关': '가챠・스카우트',
     '交易系统': '거래 시스템',
-    '球队管理': '팀 관리'
+    '球队管理': '팀 관리',
+    '本土之星': '현지 스타'
   }
 };
 
@@ -398,7 +402,7 @@ function renderStars() {
     return `
       <a href="#${g.id}" class="guide-card star-card" data-id="${g.id}" style="animation-delay: ${i * 0.05}s">
         <div class="star-card-img"><img src="${imgSrc}" alt="${title}" loading="lazy"></div>
-        <div class="card-category">本土之星</div>
+        <div class="card-category">Local Star</div>
         <div class="card-title">${title}</div>
       </a>`;
   }).join('');
